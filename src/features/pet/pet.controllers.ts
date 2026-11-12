@@ -2,6 +2,8 @@ import type { Request, Response } from "express";
 
 import { pets } from "./pet.data.js";
 import { getAllSchema } from "./pet.schemas.js";
+import { numericIdSchema } from "../../schemas/request.schema.js";
+import { NotFoundError } from "../../utils/error.js";
 
 export const getAll = (req: Request, res: Response) => {
   const { minAge, maxAge, species, isAdopted } = getAllSchema.parse(req.query);
@@ -29,4 +31,14 @@ export const getAll = (req: Request, res: Response) => {
   res.json({ success: true, data: filteredPets });
 };
 
-export const get = (req: Request, res: Response) => {};
+export const get = (req: Request, res: Response) => {
+  const { id } = numericIdSchema.parse(req.params);
+
+  const pet = pets.find((pet) => pet.id === id);
+
+  if (pet) {
+    res.json({ success: true, data: pet });
+  } else {
+    throw new NotFoundError("No pet found.");
+  }
+};
