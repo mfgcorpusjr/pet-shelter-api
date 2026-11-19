@@ -9,8 +9,8 @@ const app = express();
 
 app.use(cors());
 
-app.get("/", (req: Request, res: Response) => {
-  res.json({ success: true, message: "Pet Shelter API" });
+app.get("/health", (req: Request, res: Response) => {
+  res.json({ success: true, service: "Pet Shelter API" });
 });
 
 app.use("/api/v1/pets", petRoutes);
