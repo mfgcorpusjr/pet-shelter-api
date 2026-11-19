@@ -1,4 +1,5 @@
 import express, { type Request, type Response } from "express";
+import "dotenv/config";
 import cors from "cors";
 
 import petRoutes from "./features/pet/pet.routes.js";
@@ -12,7 +13,7 @@ app.get("/", (req: Request, res: Response) => {
   res.json({ success: true, message: "Pet Shelter API" });
 });
 
-app.use("/api/pets", petRoutes);
+app.use("/api/v1/pets", petRoutes);
 
 app.use(catchAll);
 app.use(error);
