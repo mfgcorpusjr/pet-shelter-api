@@ -3,6 +3,8 @@ import "dotenv/config";
 import cors from "cors";
 import helmet from "helmet";
 
+import { catchAll, error } from "./middlewares/error.middleware.js";
+
 const app = express();
 
 app.use(cors());
@@ -14,6 +16,9 @@ app.get("/health", (req: Request, res: Response) => {
     service: "Pet Shelter API",
   });
 });
+
+app.use(catchAll);
+app.use(error);
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
