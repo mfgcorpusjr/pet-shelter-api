@@ -3,6 +3,7 @@ import "dotenv/config";
 import cors from "cors";
 import helmet from "helmet";
 
+import petRoutes from "./features/pet/pet.routes.js";
 import { catchAll, error } from "./middlewares/error.middleware.js";
 
 const app = express();
@@ -16,6 +17,8 @@ app.get("/health", (req: Request, res: Response) => {
     service: "Pet Shelter API",
   });
 });
+
+app.use("/api/v1/pets", petRoutes);
 
 app.use(catchAll);
 app.use(error);
